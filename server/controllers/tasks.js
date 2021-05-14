@@ -17,17 +17,17 @@ module.exports = {
         task.title = req.body.title;
         task.description = req.body.description
         task.save()
-            .then(() => res.redirect('/'))
+            .then(newTask => res.json(newTask))
             .catch(err => res.json(err));
     },
     update: (req, res) => {
-        Task.updateOne({_id: req.params.id}, {title: req.body.title, description: req.body.description, completed:req.body.completed})
-        .then(() => res.redirect('/'))
+        Task.updateOne({_id: req.params.id}, {title: req.body.title, description: req.body.description})
+        .then(updateTask => res.json(updateTask))
         .catch(err => res.json(err));
     },
     destroy: (req, res) => {
         Task.deleteOne({_id: req.params.id})
-                .then(deletedUser => res.redirect('/'))
+                .then(deletedUser => res.json(deletedUser))
                 .catch(err => res.json(err));
     }
 }
